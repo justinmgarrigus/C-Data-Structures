@@ -18,12 +18,7 @@ void stack_destroy(struct stack *st) {
 }
 
 void double_capacity(struct stack *st) {
-	int *new_items = malloc(sizeof(st->items) * st->capacity * 2); 
-	for (int i = 0; i < st->capacity; i++) {
-		new_items[i] = st->items[i]; 
-	}
-	free(st->items); 
-	st->items = new_items; 
+	st->items = realloc(st->items, sizeof(st->items) * st->capacity * 2); 
 	st->capacity = 2 * st->capacity; 
 }
 

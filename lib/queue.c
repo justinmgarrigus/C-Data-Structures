@@ -20,16 +20,9 @@ void queue_destroy(struct queue *q) {
 }
 
 void double_capacity(struct queue *q) {
-	int *new_items = malloc(sizeof(q->items) * q->capacity * 2); 
-	int index;
-	for (index = q->startIndex; index < q->capacity; index++) {
-		new_items[index] = q->items[index]; 
-	}
-	for (index = 0; index < q->endIndex; index++) {
-		new_items[q->capacity + index] = q->items[index]; 
-	}
-	free(q->items); 
-	q->items = new_items; 
+	q->items = realloc(q->items, sizeof(q->items) * q->capacity * 2); 
+	for (int index = 0; index < q->endIndex; index++)
+		q->items[q->capacity + index] = q->items[index]; 
 	q->endIndex = q->capacity + q->startIndex; 
 	q->capacity = 2 * q->capacity; 
 }

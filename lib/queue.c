@@ -62,40 +62,40 @@ int queue_pop(struct queue *q) {
 	return item;
 }
 
-int main() {
-	struct queue *q = queue_create(5);
-	
-	queue_push(q, 1);
-	queue_push(q, 2);
-	queue_push(q, 3);
-	printf("%d, %d: ", q->count, q->capacity); 
-	queue_print(q);
-	printf("\n"); 
-	
-	queue_push(q, 4);
-	queue_push(q, 5);
-	queue_push(q, 6);
-	queue_push(q, 7);
-	printf("%d, %d: ", q->count, q->capacity); 
-	queue_print(q);
-	printf("\n"); 
-
-	printf("Pop: %d\n", queue_pop(q));
-	printf("Pop: %d\n", queue_pop(q));
-	printf("Pop: %d\n", queue_pop(q)); 
-	printf("%d, %d: ", q->count, q->capacity);
-	queue_print(q);
-	printf("\n"); 
-
-	queue_push(q, 8);
-	queue_push(q, 9);
-	queue_push(q, 10); 
-	printf("%d, %d: ", q->count, q->capacity); 
-	queue_print(q);
-	printf("\n");
-
-	while (q->count > 0)
-		printf("Pop: %d\n", queue_pop(q));
-	
-	queue_destroy(q); 	
-}
+//int main() {
+//	struct queue *q = queue_create(5);
+//	
+//	queue_push(q, 1);
+//	queue_push(q, 2);
+//	queue_push(q, 3);
+//	printf("%d, %d: ", q->count, q->capacity); 
+//	queue_print(q);
+//	printf("\n"); 
+//	
+//	queue_push(q, 4);
+//	queue_push(q, 5);
+//	queue_push(q, 6);
+//	queue_push(q, 7);
+//	printf("%d, %d: ", q->count, q->capacity); 
+//	queue_print(q);
+//	printf("\n"); 
+//
+//	printf("Pop: %d\n", queue_pop(q));
+//	printf("Pop: %d\n", queue_pop(q));
+//	printf("Pop: %d\n", queue_pop(q)); 
+//	printf("%d, %d: ", q->count, q->capacity);
+//	queue_print(q);
+//	printf("\n"); 
+//
+//	queue_push(q, 8);
+//	queue_push(q, 9);
+//	queue_push(q, 10); 
+//	printf("%d, %d: ", q->count, q->capacity); 
+//	queue_print(q);
+//	printf("\n");
+//
+//	while (q->count > 0)
+//		printf("Pop: %d\n", queue_pop(q));
+//	
+//	queue_destroy(q); 	
+//}

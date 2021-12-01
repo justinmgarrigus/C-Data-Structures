@@ -4,32 +4,32 @@
 #include <stdlib.h>
 #include "stack.h"
 
-struct stack* stack_create(int initial_capacity) {
-	struct stack *st = malloc(sizeof(struct stack)); 
+stack* stack_create(int initial_capacity) {
+	stack *st = malloc(sizeof(stack)); 
 	st->capacity = initial_capacity; 
 	st->count = 0; 
 	st->items = malloc(sizeof(st->items) * initial_capacity); 
 	return st; 
 }
 
-void stack_destroy(struct stack *st) {
+void stack_destroy(stack *st) {
 	free(st->items);
 	free(st);
 }
 
-void double_capacity(struct stack *st) {
+void double_capacity(stack *st) {
 	st->items = realloc(st->items, sizeof(st->items) * st->capacity * 2); 
 	st->capacity = 2 * st->capacity; 
 }
 
-void stack_push(struct stack *st, int val) {
+void stack_push(stack *st, int val) {
 	if (st->count == st->capacity) {
 		double_capacity(st); 
 	}
 	st->items[st->count++] = val; 
 }
 
-void stack_print(struct stack *st) {
+void stack_print(stack *st) {
 	printf("["); 
 	for (int i = 0; i < st->count - 1; i++)
 		printf("%d, ", st->items[i]);
@@ -38,13 +38,13 @@ void stack_print(struct stack *st) {
 	printf("]"); 
 }
 
-int stack_pop(struct stack *st) {
+int stack_pop(stack *st) {
 	st->count--; 
 	return st->items[st->count];
 }
 
 //int main() {
-//	struct stack *st = stack_create(5);
+//	stack *st = stack_create(5);
 //	
 //	stack_push(st, 1);
 //	stack_push(st, 2);

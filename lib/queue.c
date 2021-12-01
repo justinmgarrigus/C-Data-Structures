@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include "queue.h"
 
-struct queue* queue_create(int initial_capacity) {
-	struct queue *q = malloc(sizeof(struct queue)); 
+queue* queue_create(int initial_capacity) {
+	queue *q = malloc(sizeof(queue)); 
 	q->capacity = initial_capacity; 
 	q->count = 0;
 	q->startIndex = 0;
@@ -14,12 +14,12 @@ struct queue* queue_create(int initial_capacity) {
 	return q; 
 }
 
-void queue_destroy(struct queue *q) {
+void queue_destroy(queue *q) {
 	free(q->items);
 	free(q); 
 }
 
-void double_capacity(struct queue *q) {
+void double_capacity(queue *q) {
 	q->items = realloc(q->items, sizeof(q->items) * q->capacity * 2); 
 	for (int index = 0; index < q->endIndex; index++)
 		q->items[q->capacity + index] = q->items[index]; 
@@ -27,7 +27,7 @@ void double_capacity(struct queue *q) {
 	q->capacity = 2 * q->capacity; 
 }
 
-void queue_push(struct queue *q, int val) {
+void queue_push(queue *q, int val) {
 	if (q->count == q->capacity) {
 		double_capacity(q); 
 	}
@@ -36,7 +36,7 @@ void queue_push(struct queue *q, int val) {
 	q->count++; 
 }
 
-void queue_print(struct queue *q) {
+void queue_print(queue *q) {
 	printf("["); 
 	int numPrinted = 0;
 	while (numPrinted < q->count - 1) {
@@ -48,7 +48,7 @@ void queue_print(struct queue *q) {
 	printf("]");
 }
 
-int queue_pop(struct queue *q) {
+int queue_pop(queue *q) {
 	int item = q->items[q->startIndex]; 
 	q->startIndex = (q->startIndex + 1) % q->capacity;
 	q->count--; 
@@ -56,7 +56,7 @@ int queue_pop(struct queue *q) {
 }
 
 //int main() {
-//	struct queue *q = queue_create(5);
+//	queue *q = queue_create(5);
 //	
 //	queue_push(q, 1);
 //	queue_push(q, 2);

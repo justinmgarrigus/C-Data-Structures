@@ -23,6 +23,10 @@ void vector_increase_capacity(vector *v) {
 	v->capacity *= 2; 
 }
 
+void* vector_getp(vector *v, size_t index) {
+	return ((char*)v->data + v->data_size * index); 
+}
+
 void vector_set(vector *v, unsigned long item, size_t index) {
 	// Bytes stored in little-endian order. 
 	// Treat 'data' is if it were a byte array.
@@ -37,6 +41,12 @@ void vector_add(vector *v, unsigned long item) {
 	}
 
 	vector_set(v, item, v->count++); 
+}
+
+void* vector_addp(vector *v) {
+	if (v->count == v->capacity) 
+		vector_increase_capacity(v); 
+	return vector_getp(v, v->count++); 
 }
 
 unsigned long vector_get(vector *v, size_t index) {
@@ -69,30 +79,30 @@ void vector_string(vector *v, char buffer[]) {
 	buffer[buffer_index] = '\0'; 
 }
 
-//int main() {
-//	char buffer[100]; 
-//	vector *v = vector_create(8, sizeof(int)); 
-//	
-//	vector_add(v, 1);
-//	vector_add(v, 2);
-//	vector_add(v, 3); 
-//	vector_string(v, buffer);
-//	printf("%lu, %lu: %s\n", v->count, v->capacity, buffer); 
-//	
-//	vector_add(v, 4);
-//	vector_add(v, 5);
-//	vector_add(v, 6);
-//	vector_string(v, buffer);
-//	printf("%lu, %lu: %s\n", v->count, v->capacity, buffer); 
-//	
-//	vector_set(v, 7, 0);
-//	vector_set(v, 8, 1);
-//	vector_set(v, 9, 2);
-//	vector_string(v, buffer);
-//	printf("%lu, %lu: %s\n", v->count, v->capacity, buffer); 
-//
-//	for (int i = 0; i < v->count; i++)
-//		printf("Item at {%d}: {%d}\n", i, (int)vector_get(v, i)); 
-//
-//	vector_destroy(v); 
-//}
+int main() {
+	char buffer[100]; 
+	vector *v = vector_create(8, sizeof(int)); 
+	
+	*((int*)vector_addp(v)) = 1;
+	*((int*)vector_addp(v)) = 2; 
+	*((int*)vector_addp(v)) = 3; 
+	vector_string(v, buffer);
+	printf("%lu, %lu: %s\n", v->count, v->capacity, buffer); 
+
+	*((int*)vector_addp(v)) = 4;
+	*((int*)vector_addp(v)) = 5; 
+	*((int*)vector_addp(v)) = 6; 
+	vector_string(v, buffer);
+	printf("%lu, %lu: %s\n", v->count, v->capacity, buffer); 
+	
+	*((int*)vector_getp(v, 0)) = 7;
+	*((int*)vector_getp(v, 1)) = 8; 
+	*((int*)vector_getp(v, 2)) = 9; 
+	vector_string(v, buffer);
+	printf("%lu, %lu: %s\n", v->count, v->capacity, buffer); 
+
+	for (int i = 0; i < v->count; i++)
+		printf("Item at {%d}: {%d}\n", i, (int)vector_get(v, i)); 
+
+	vector_destroy(v); 
+}

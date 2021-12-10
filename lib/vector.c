@@ -57,8 +57,9 @@ void vector_string(vector *v, char* type, char buffer[]) {
 			case 's':
 				i = 0;
 				str_val = vector_get(v, char*, item_index++); 
-				while (str_val[i] != '\0' && i < value_max_length) {
-					value_buffer[i] = str_val[i++]; 
+				while (str_val[i] != '\0' && i < value_max_length-1) {
+					value_buffer[i] = str_val[i];
+					i++;
 				}
 				value_buffer[i] = '\0'; 
 				break; 
